@@ -160,6 +160,52 @@ class CalFileParser {
     }
 
     /**
+     * Total
+     * Measures total number of hours in specified range
+     * 
+     * @param json_decoded $cal
+     * @param $start - time in unix
+     * @param $end - time in unix
+     * @return number
+     */
+    public function total($cal, $start = '0', $end = '') {
+        
+        // Parse file into array
+        $cal_decoded = json_decode($cal);
+
+        // If end time is not specified
+        if (empty($end)) {
+            // Set end time to now
+            $end = time();
+        }
+
+        // total
+        $sum = 0;
+
+        foreach ($cal_decoded as $slot) {
+            
+            // Get start and end of slot
+            $s_start = strtotime($slot->dtstart->date);
+            $s_end = strtotime($slot->dtend->date);
+
+            // If start of slot doesn't fall within the range 
+            // specified in this function
+            if ($s_start < $start) {
+                // Don't count the time from slot
+                $slot_hours = 0;
+            } else {
+                // Get how many hours in the slot
+                $slot_hours = ($s_end - $s_start) / 60 / 60;
+            }
+
+            $sum += $slot_hours;
+        }
+
+        return $sum;
+
+    }
+
+    /**
      * Output
      * outputs data in the format specified
      *
