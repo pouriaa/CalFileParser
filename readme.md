@@ -14,7 +14,7 @@ Parser for Calendar files (.ical, .vcal, .ics). Reads event information and outp
 
 * parse($file = '', $output = 'array') //reads file and outputs either array or json
 
-*total($parsed_calendar, $start, $end) // returns number of hours accumulated in calendar for range
+* total($parsed_calendar, $start, $end) // returns number of hours accumulated in calendar for range
 
 * set_base_path($path) // defaults to './', not required if setting file_name to absolute path
 * set_file_name($filename) // local file or URL
